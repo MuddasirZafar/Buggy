@@ -1,0 +1,67 @@
+<div class="container-new">
+  <div class="d-flex flex-column align-items-center my-4">
+    <h2>Update Bug</h2>
+
+    <%= form_for @bug do |f| %>
+      <div class="form-group">
+        <%= f.label :title %><br />
+        <%= f.text_field :title, class: "form-control my-1" , autofocus: true, placeholder: "Enter Bud's Title" , required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.label :description %><br />
+        <%= f.text_field :description , class: "form-control my-1" , autofocus: true, placeholder: "Enter Bug's description", required: true %>
+      </div>
+
+      <div class="field">
+        <%= f.hidden_field :project_id, value: @bug.project_id %>
+      </div>
+
+      <div class="form-group">
+        <% bug_status = [['New', 'new'], ['Started', 'started']] %>
+        <% if @bug.bug_type == 'bug' %>
+          <% bug_status.push(['Resolved', 'resolved']) %>
+        <% else %>
+          <% bug_status.push(['Completed', 'completed']) %> <!-- Fixed typo here -->
+        <% end %>
+      
+        <%= f.label :status %><br />
+        <%= f.select(:status, options_for_select(bug_status, @bug.status), { class: 'form-field form-control my-1', required: true }) %>
+      </div>
+
+      <div>
+        <%= f.label :assigned_to, "Developers to assign" %><br />
+        <% developers = Project.find(@bug.project_id).users %>
+        <% result = developers.select do |elem| %>
+            <% elem.user_type == "developer" %>
+        <% end %>
+        <%= f.collection_select :assigned_to, result, :id , :name , {} , {multiple: false, required: true , class: 'form-control form-control my-1' } %>
+      </div>
+
+      <div class="field">
+        <%= f.hidden_field :user_id, value: current_user.id %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :bug_type %><br />
+        <%= f.select(:bug_type, options_for_select([['Bug', 'bug'], ['Feature', 'feature']], @bug.bug_type), { class: 'form-control form-control my-1', required: true }) %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :deadline %><br />
+        <%= f.date_select :deadline, start_year: Time.now.year, end_year: Time.now.year + 10, 
+                        default: @bug.deadline, class: 'form-control form-control my-1', required: true %>
+      </div>
+
+      <div class="actions">
+        <% if @bug.image.present? %>
+          <p>Current Image URL: <%= @bug.image %></p>
+        <% end %>
+        <%= f.file_field :image, accept: 'image/png,image/jpeg', class: "my-1 btn btn-primary col-12" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Update" , class:"my-1 btn btn-primary col-12"%>
+      </div>
+    <% end %>
+  </div>
+</div>

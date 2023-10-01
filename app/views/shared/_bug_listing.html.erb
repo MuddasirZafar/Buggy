@@ -1,0 +1,33 @@
+<div class="d-flex flex-column align-items-center">
+  <h1 class="mt-5">
+    <%= title %>
+  </h1>
+  <% bug.each do |b| %>
+    <div class="col-md-11 my-3">
+      <div class="h-100 p-5 text-white bg-dark rounded-3 d-flex align-items-center justify-content-around">
+        <% if b.image.present? %>
+          <div class="col-md-1">
+            <%= image_tag b.image.url, style: 'max-height: 150px; max-width: 150px;' %>
+          </div>
+        <% end %>
+        <div class="col-md-8">
+          <h2><%= link_to "Title : #{b.title.capitalize}" , my_bug_path(b), style: "text-decoration:none" %></h2>
+          <hr>
+          <p>Description : <%= b.description.capitalize.truncate(100) %> </p>
+          <br>
+          <div class="d-flex justify-content-between">
+            <span>Type : <%= b.bug_type.capitalize %></span>
+            <span>Status : <%= b.status.capitalize %> </span>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between">
+            <small>Created by : <%= b.user.name.capitalize %></small>
+            <% if b.assigned_to.present? %>
+              <small>Assigned to : <%= User.find(b.assigned_to).name.capitalize %> </small>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

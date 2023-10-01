@@ -1,0 +1,4 @@
+<div class="form-group">
+      <%= f.label :Developers, "QA to Assign" %><br />
+      <%= select_tag "users2[]", options_for_select(@users2.collect{|x| [x.name + " ( " + x.user_type + " )" ,x.id]}), {:multiple => :multiple, :size => 10, :class => 'form-control form-control my-1'} %>
+    </div>
