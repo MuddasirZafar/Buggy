@@ -1,0 +1,56 @@
+
+<style>
+	body {
+		background-color: #f0f0f0;
+		font-family: Arial, sans-serif;
+	}
+
+	.welcome-section {
+		text-align: center;
+		padding: 5rem 0;
+	}
+
+	.welcome-section h1 {
+		font-size: 2.5rem;
+		color: #333;
+		margin-bottom: 1rem;
+	}
+
+	.welcome-section h4 {
+		font-size: 1.2rem;
+		color: #666;
+		margin-bottom: 2rem;
+	}
+
+	.btn-container {
+		display: flex;
+		justify-content: center;
+		gap: 20px; /* Add space between buttons */
+		margin-top: 20px;
+	}
+
+	.btn-custom {
+		font-size: 1.2rem;
+		padding: 0.75rem 2rem;
+		border-radius: 30px;
+		background-color: #007bff;
+		color: #fff;
+		transition: background-color 0.3s ease;
+		text-decoration: none; /* Remove button underline */
+	}
+
+	.btn-custom:hover {
+		background-color: #0056b3;
+		transform: scale(1.05); /* Add a scale effect on hover */
+	}
+</style>
+<body>
+    <div class="container welcome-section">
+        <h1>Welcome to Buggy</h1>
+        <h4>Please Sign up or Sign In to use our Functionality</h4>
+        <div class="btn-container">
+            <a href="<%= new_user_registration_path %>" class="btn btn-custom">Sign Up</a>
+            <a href="<%= new_user_session_path %>" class="btn btn-outline-primary btn-custom">Sign In</a>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,16 @@
+<div class="d-flex flex-column align-items-center">
+  <h1>
+    Projects
+  </h1>
+  <% obj.each do |p| %>
+    <div class="col-md-8 my-2">
+      <div class="h-100 p-5 text-white bg-dark rounded-3">
+        <h2><%= link_to "#{p.name}", project_path(p) %></h2>
+        <p><%= p.description.truncate(75) %></p>
+        <div class="d-flex justify-content-between">
+          <small>Created by: <%=p.user.name %></small><small>Created at: <%=  time_ago_in_words(p.created_at) %></small>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

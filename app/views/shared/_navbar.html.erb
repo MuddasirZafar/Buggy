@@ -1,0 +1,68 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <%= link_to "Buggy", root_path, class: "navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to "Home", root_path, class: "nav-link active" %>
+        </li>
+        
+        <% if manager? %>
+        <li class="nav-item">
+          <%= link_to "New Project", new_project_path, class: "nav-link" %>
+        </li>
+        <% end %>
+
+      </ul>
+      <form class="d-flex">
+        <% if user_signed_in? %>
+          <div class="collapse navbar-collapse mx-5" id="navbarNavDarkDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <%= current_user.name %>
+                  <% if current_user.user_type == "manager" %>
+                  Manager
+                  <% elsif current_user.user_type == "qa" %>
+                  Qa
+                  <% else %>
+                  Developer
+                  <% end %>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                  <li><%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %></li>
+                  <li><%= link_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item" %></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        <% else %>
+          <%= link_to "Sign Up", new_user_registration_path, class: "nav-link text-light" %>
+          <%= link_to "Sign In", new_user_session_path, class: "nav-link text-light" %>
+        <% end %>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<style>
+  /* Add custom CSS styles here */
+  /* Example: */
+  .navbar {
+    background-color: #007BFF; /* Change to your preferred background color */
+  }
+
+  .navbar-brand {
+    color: #FFFFFF; /* Change to your preferred text color */
+    font-size: 24px; /* Adjust the font size */
+  }
+
+  .nav-link {
+    color: #333; /* Change to your preferred text color */
+  }
+
+  /* Add more custom styles as needed */
+</style>

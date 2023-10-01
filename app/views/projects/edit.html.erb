@@ -1,0 +1,30 @@
+<div class="container-new">
+  <div class="d-flex flex-column align-items-center my-4">
+    <h2>Edit Project</h2>
+    <%= form_for @project do |f| %>
+
+      <div class="form-group">
+        <%= f.label :name %><br />
+        <%= f.text_field :name, class: "form-control my-1" , autofocus: true, placeholder: "Enter Project name" , required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :description %><br />
+        <%= f.text_field :description , class: "form-control my-1" , autofocus: true, placeholder: "Enter Project description" , required: true %>
+      </div>
+      
+      <div>
+        <%= f.label :user_ids, "Developers" %><br />
+        <%= f.collection_select :user_ids, User.where(user_type: "developer"), :id , :name , {} , {multiple: true, required: true, class: 'form-control form-control my-1' } %>
+      </div>
+      <div>
+        <%= f.label :user_ids, "QAs" %><br />
+        <%= f.collection_select :user_ids, User.where(user_type: "qa"), :id , :name , {} , {multiple: true, required: true, class: 'form-control form-control my-1' } %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Update Project" , class:"my-1 btn btn-primary col-12"%>
+      </div>
+    <% end %>
+  </div>
+</div>
